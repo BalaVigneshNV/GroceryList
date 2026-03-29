@@ -5,6 +5,7 @@ import GroceryList from './components/GroceryList';
 import PantryTracker from './components/PantryTracker';
 import RecipeLibrary from './components/RecipeLibrary';
 import FestivalTemplates from './components/FestivalTemplates';
+import HowToUse from './components/HowToUse';
 import './App.css';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
               <NavLink to="/pantry" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>🏠 Pantry</NavLink>
               <NavLink to="/recipes" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>📖 Recipes</NavLink>
               <NavLink to="/festivals" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>🎉 Festivals</NavLink>
+              <NavLink to="/how-to-use" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>❓ How to Use</NavLink>
             </nav>
           </div>
         </header>
@@ -32,6 +34,7 @@ function App() {
             <Route path="/pantry" element={<PantryTracker />} />
             <Route path="/recipes" element={<RecipeLibrary />} />
             <Route path="/festivals" element={<FestivalTemplates />} />
+            <Route path="/how-to-use" element={<HowToUse />} />
           </Routes>
         </main>
       </div>
