@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const rateLimit = require('express-rate-limit');
 const { getDb } = require('./database');
 
 const app = express();
@@ -8,6 +9,14 @@ const PORT = 3001;
 
 app.use(cors({ origin: ['http://localhost:5173', 'http://127.0.0.1:5173'] }));
 app.use(bodyParser.json());
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 200,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use('/api/', apiLimiter);
 
 const PRICES = {
   'onion': { price: 40, unit: 'kg' },
