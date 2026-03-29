@@ -34,11 +34,19 @@ export default function RecipeLibrary() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
+    let cancelled = false;
     const url = cuisine ? `${API}/recipes?cuisine=${cuisine}` : `${API}/recipes`;
-    axios.get(url)
-      .then(r => setRecipes(r.data))
-      .finally(() => setLoading(false));
+    const fetchRecipes = async () => {
+      setLoading(true);
+      try {
+        const r = await axios.get(url);
+        if (!cancelled) setRecipes(r.data);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+    fetchRecipes();
+    return () => { cancelled = true; };
   }, [cuisine]);
 
   return (

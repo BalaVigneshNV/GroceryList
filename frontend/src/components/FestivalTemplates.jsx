@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const API = 'http://localhost:3001/api';
@@ -15,7 +14,6 @@ const CATEGORY_ICONS = {
 };
 
 export default function FestivalTemplates() {
-  const navigate = useNavigate();
   const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [groceryData, setGroceryData] = useState(null);
@@ -67,7 +65,7 @@ export default function FestivalTemplates() {
       });
 
       setGroceryData(res.data);
-    } catch (e) {
+    } catch {
       alert('Failed to generate festival grocery list');
     } finally {
       setGenerating(false);

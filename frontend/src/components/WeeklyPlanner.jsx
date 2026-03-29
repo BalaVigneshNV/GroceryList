@@ -47,7 +47,7 @@ export default function WeeklyPlanner({ onGroceryGenerated }) {
       const res = await axios.post(`${API}/grocery-list/generate`, { meals, familySize, usePantry });
       onGroceryGenerated(res.data);
       navigate('/grocery-list');
-    } catch (e) {
+    } catch {
       setError('Failed to generate grocery list. Make sure the backend is running.');
     } finally {
       setLoading(false);
