@@ -9,6 +9,7 @@ export default function PantryTracker() {
   const [editId, setEditId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
 
   const fetchItems = async () => {
     try {
@@ -46,12 +47,17 @@ export default function PantryTracker() {
   };
 
   const handleDelete = async (id) => {
-    if (!confirm('Delete this pantry item?')) return;
+    setConfirmDeleteId(id);
+  };
+
+  const confirmDelete = async () => {
     try {
-      await axios.delete(`${API}/pantry/${id}`);
+      await axios.delete(`${API}/pantry/${confirmDeleteId}`);
       fetchItems();
     } catch {
       setError('Failed to delete item');
+    } finally {
+      setConfirmDeleteId(null);
     }
   };
 
@@ -189,6 +195,19 @@ export default function PantryTracker() {
           </div>
         )}
       </div>
+
+      {/* Confirm Delete Modal */}
+      {confirmDeleteId !== null && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+          <div className="card" style={{ maxWidth: 340, width: '90%', textAlign: 'center' }}>
+            <p style={{ marginBottom: 20, fontSize: '1rem' }}>Delete this pantry item?</p>
+            <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+              <button className="btn btn-danger" onClick={confirmDelete}>Delete</button>
+              <button className="btn btn-secondary" onClick={() => setConfirmDeleteId(null)}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
