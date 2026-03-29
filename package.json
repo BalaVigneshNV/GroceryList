@@ -1,0 +1,11 @@
+{
+  "name": "indian-meals-grocery-list",
+  "version": "1.0.0",
+  "description": "Indian Meals Grocery List Generator - Full Stack App",
+  "scripts": {
+    "backend": "cd backend && node server.js",
+    "frontend": "cd frontend && npm run dev",
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "start": "npm run backend"
+  }
+}
